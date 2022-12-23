@@ -1,3 +1,4 @@
+import { parse } from 'url';
 import { normalizeOptions, winDoNotTrack } from './utils';
 import type {
   BasicPayload, EventPayload,
@@ -5,6 +6,24 @@ import type {
   Umami,
   ViewPayload,
 } from './types';
+
+export async function useUmamiAsMiddleware(opts: ScriptOptions, win: Window) {
+  const hostname = 'localhost';
+  const port = 3000;
+  const dev = process.env.NODE_ENV !== 'production';
+  const { DATABASE_URL, url } = normalizeOptions(opts);
+
+  const next = await import('next');
+  const app = next({ dev, hostname, port });
+  const handle = app.getRequestHandler();
+  await app.prepare();
+
+  return async (req, res, url) => {
+    const parsedUrl = parse(url, true);
+    const { pathname, query } = parsedUrl;
+    await app.render(req, res, pathname, query);
+  };
+}
 
 export function tracker(opts: ScriptOptions, win: Window) {
   const { website, dnt, domain, root } = normalizeOptions(opts);

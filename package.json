@@ -60,5 +60,8 @@
     "unbuild": "^1.0.2",
     "vite": "^4.0.3",
     "vitest": "^0.26.2"
+  },
+  "dependencies": {
+    "umami": "^0.1.0"
   }
 }
