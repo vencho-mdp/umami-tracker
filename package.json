@@ -13,6 +13,7 @@
   },
   "bugs": "https://github.com/ijkml/umami-tracker/issues",
   "keywords": [],
+  "contributors": [],
   "sideEffects": false,
   "exports": {
     ".": {
@@ -38,7 +39,7 @@
   "scripts": {
     "build": "unbuild",
     "dev": "unbuild --stub",
-    "lint": "eslint .",
+    "lint": "eslint . --fix",
     "prepublishOnly": "nr build",
     "release": "bumpp && npm publish",
     "start": "esno src/index.ts",
